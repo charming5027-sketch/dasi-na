@@ -1,12 +1,9 @@
-/* 기본 전체 글꼴 설정 */
-* {
-  font-family: 'Noto Sans KR', sans-serif;
-}
+/* =========================================
+   다시, 나 - 스타일 파일
+   1일차: 구글 글꼴만 적용 (디자인은 2일차)
+   ========================================= */
 
-/* 본문 기본 텍스트 서식 */
+/* 페이지 전체에 Noto Sans KR 글꼴 적용 */
 body {
-  margin: 0;
-  padding: 0;
-  line-height: 1.6;
-  color: #333333;
+  font-family: 'Noto Sans KR', sans-serif;
 }

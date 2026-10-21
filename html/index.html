@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+  <!-- 문자 인코딩: 한글이 깨지지 않도록 설정 -->
   <meta charset="UTF-8">
+  <!-- 모바일 화면 크기에 맞추는 설정 (2일차 반응형에서 사용) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>다시, 나 - 경력 포트폴리오</title>
+  <title>다시, 나 | 김지은 포트폴리오</title>
 
-  <!-- Google Fonts: Noto Sans KR 연결 -->
+  <!-- Google Fonts: Noto Sans KR 글꼴 연결 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- 외부 스타일시트 연결 -->
-  <link rel="stylesheet" href="/css/style.css">
+  <!-- 외부 CSS 파일 연결 -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- 외부 JavaScript 파일 연결 (defer: 화면을 다 읽은 뒤 실행) -->
+  <script src="js/script.js" defer></script>
 </head>
 <body>
 
-  <!-- 상단 영역: 로고 및 내비게이션 -->
+  <!-- 머리 영역: 사이트 이름과 메뉴 -->
   <header>
     <h1>다시, 나</h1>
     <nav>
       <ul>
         <li><a href="#about">소개</a></li>
-        <li><a href="#experience">경력</a></li>
+        <li><a href="#career">경력</a></li>
         <li><a href="#skills">역량</a></li>
         <li><a href="#education">교육·자격</a></li>
         <li><a href="#contact">문의</a></li>
@@ -29,51 +34,60 @@
     </nav>
   </header>
 
-  <!-- 본문 영역 -->
   <main>
-    <!-- 소개 섹션 -->
+    <!-- 소개 영역: 프로필 사진과 한 줄 소개 -->
     <section id="about">
-      <h2>소개</h2>
-      <img src="https://placehold.co/300x300?text=Profile" alt="김지은 프로필 사진" width="300" height="300">
-      <h3>김지은</h3>
-      <p>10년 경력의 사무행정 전문가, 다시 시작합니다</p>
+      <img src="https://placehold.co/400x400?text=Profile" alt="김길동 프로필 사진" width="400" height="400">
+      <h2>김지은</h2>
+      <p>10년 경력의 사무행정 전문가, 다시 시작합니다.</p>
     </section>
 
-    <!-- 경력 섹션 -->
-    <section id="experience">
+    <!-- 경력 영역: 회사, 기간, 담당 업무 -->
+    <section id="career">
       <h2>경력</h2>
-      <img src="https://placehold.co/600x200?text=Career" alt="경력 대표 이미지" width="600" height="200">
-      <p>주요 경력 사항이 들어갈 자리입니다.</p>
+      <article>
+        <h3>(주)한빛상사 총무팀</h3>
+        <p>2010.03 ~ 2016.02</p>
+        <p>문서 관리, 비품 구매, 행사 운영</p>
+      </article>
+      <article>
+        <h3>(주)새봄유통 영업지원팀</h3>
+        <p>2016.03 ~ 2020.02</p>
+        <p>거래처 관리, 매출 자료 정리, 고객 응대</p>
+      </article>
     </section>
 
-    <!-- 역량 섹션 -->
+    <!-- 역량 영역: 나의 강점 -->
     <section id="skills">
       <h2>역량</h2>
-      <img src="https://placehold.co/600x200?text=Skills" alt="역량 대표 이미지" width="600" height="200">
-      <p>보유 핵심 역량 및 업무 스킬이 들어갈 자리입니다.</p>
+      <ul>
+        <li>문서 작성과 자료 정리 (한글, 엑셀)</li>
+        <li>고객 응대와 일정 관리</li>
+        <li>생성형 AI를 활용한 웹페이지 제작</li>
+      </ul>
     </section>
 
-    <!-- 교육·자격 섹션 -->
+    <!-- 교육·자격 영역 -->
     <section id="education">
       <h2>교육·자격</h2>
-      <img src="https://placehold.co/600x200?text=Education" alt="교육 및 자격 이미지" width="600" height="200">
-      <p>수료 교육 및 취득 자격증 정보가 들어갈 자리입니다.</p>
+      <ul>
+        <li>디지털서비스융합 전문가 양성과정 수료 (2026)</li>
+        <li>컴퓨터활용능력 2급</li>
+      </ul>
     </section>
 
-    <!-- 문의 섹션 -->
+    <!-- 문의 영역: 4일차에 실제 게시판과 연결 예정 -->
     <section id="contact">
       <h2>문의</h2>
-      <img src="https://placehold.co/600x150?text=Contact" alt="문의 안내 이미지" width="600" height="150">
-      <p>연락처 및 문의 수단이 들어갈 자리입니다.</p>
+      <p>함께 일할 기회를 기다립니다. 아래 문의 게시판에 글을 남겨 주세요.</p>
+      <img src="https://placehold.co/800x300?text=Contact+Board" alt="문의 게시판 자리" width="800" height="300">
     </section>
   </main>
 
-  <!-- 하단 푸터 영역 -->
+  <!-- 바닥 영역: 저작권 표시 -->
   <footer>
     <p>&copy; 2026 김지은. All rights reserved.</p>
   </footer>
 
-  <!-- 외부 자바스크립트 연결 -->
-  <script src="/js/script.js"></script>
 </body>
 </html>
