@@ -1,0 +1,12 @@
+/* 기본 전체 글꼴 설정 */
+* {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 본문 기본 텍스트 서식 */
+body {
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  color: #333333;
+}
