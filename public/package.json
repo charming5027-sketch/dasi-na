@@ -1,0 +1,9 @@
+{
+  "name": "dasi-na",
+  "version": "1.0.0",
+  "description": "다시, 나 - 경력 포트폴리오 웹서비스",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "create-admin": "node scripts/create-admin.js"
+  }}

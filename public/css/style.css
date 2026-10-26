@@ -1,0 +1,384 @@
+/* =========================================
+   다시, 나 - 스타일 파일
+   1일차: 구글 글꼴만 적용 (디자인은 2일차)
+   ========================================= */
+
+/* 페이지 전체에 Noto Sans KR 글꼴 적용 */
+body {
+	font-family: "Noto Sans KR", sans-serif;
+}
+
+/* =========================================
+   다시, 나 - 스타일 파일
+   2일차: 기본 디자인 (휴대폰 화면 기준)
+   ========================================= */
+
+/* 1. 색상 변수 */
+:root {
+	/*--main-color: #2f6f5e; /* 대표색: 짙은 초록 */
+	--main-color: #4a5a8c; /* 대표색: 짙은 초록 */
+	/*--point-color: #f2a65a; /* 강조색: 살구색 */
+	--point-color: #e8b4b8; /* 강조색: 살구색 */
+	--text-color: #333333; /* 글자색 */
+	--bg-color: #f8f7f4; /* 배경색: 따뜻한 미색 */
+	--white: #ffffff;
+}
+
+/* 2. 기본 설정 */
+* {
+	box-sizing: border-box; /* 여백을 포함해 크기 계산 */
+	margin: 0;
+	padding: 0;
+}
+html {
+	scroll-behavior: smooth; /* 메뉴 클릭 시 부드럽게 이동 */
+}
+body {
+	font-family: "Noto Sans KR", sans-serif;
+	color: var(--text-color);
+	background-color: var(--bg-color);
+	line-height: 1.7;
+}
+img {
+	max-width: 100%; /* 화면보다 커지지 않게 */
+	height: auto;
+	display: block;
+}
+a {
+	color: inherit;
+	text-decoration: none; /* 링크 밑줄 제거 */
+}
+ul {
+	list-style: none; /* 목록 점 제거 */
+}
+
+/* 3. 헤더와 메뉴 (Flexbox) */
+header {
+	position: sticky; /* 스크롤해도 위에 고정 */
+	top: 0;
+	z-index: 10;
+	background-color: var(--main-color);
+	color: var(--white);
+	padding: 12px 20px;
+}
+header h1 {
+	font-size: 1.4rem;
+}
+nav ul {
+	display: flex;
+	flex-wrap: wrap; /* 화면이 좁으면 다음 줄로 */
+	gap: 4px 16px;
+	margin-top: 8px;
+}
+nav a {
+	font-size: 0.95rem;
+}
+nav a:hover {
+	color: var(--point-color);
+}
+
+/* 4. 본문 공통 */
+main {
+	max-width: 1000px; /* 넓은 화면에서도 가운데 정렬 */
+	margin: 0 auto;
+	padding: 0 20px;
+}
+section {
+	padding: 48px 0;
+	border-bottom: 1px solid #e3e1db;
+	scroll-margin-top: 100px; /* 고정 헤더에 제목이 가리지 않게 */
+}
+section:last-child {
+	border-bottom: none;
+}
+section h2 {
+	font-size: 1.5rem;
+	color: var(--main-color);
+	margin-bottom: 20px;
+}
+section h2::after {
+	/* 제목 아래 강조색 짧은 밑줄 */
+	content: "";
+	display: block;
+	width: 40px;
+	height: 4px;
+	margin-top: 8px;
+	background-color: var(--point-color);
+	border-radius: 2px;
+}
+
+/* 5. 소개 영역 (Grid) */
+#about {
+	display: grid;
+	justify-items: center;
+	text-align: center;
+	gap: 16px;
+}
+#about img {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%; /* 원형 사진 */
+	object-fit: cover;
+	border: 6px solid var(--white);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+#about h2 {
+	font-size: 2rem;
+	margin-bottom: 0;
+}
+#about h2::after {
+	margin: 8px auto 0; /* 밑줄 가운데 정렬 */
+}
+#about p {
+	font-size: 1.1rem;
+}
+
+/* 6. 경력 카드 (Grid) */
+#career {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 16px;
+}
+#career h2 {
+	grid-column: 1 / -1; /* 제목은 한 줄 전체 차지 */
+	margin-bottom: 4px;
+}
+#career article {
+	background-color: var(--white);
+	padding: 20px;
+	border-radius: 12px;
+	border-left: 6px solid var(--main-color);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+#career h3 {
+	font-size: 1.1rem;
+}
+#career article p:first-of-type {
+	/* 근무 기간 */
+	color: var(--point-color);
+	font-weight: 700;
+	font-size: 0.9rem;
+}
+
+/* 7. 역량·교육 목록 */
+#skills ul,
+#education ul {
+	display: grid;
+	gap: 12px;
+}
+#skills li,
+#education li {
+	background-color: var(--white);
+	padding: 14px 18px;
+	border-radius: 10px;
+}
+#skills li::before {
+	content: "✔ ";
+	color: var(--main-color);
+	font-weight: 700;
+}
+#education li::before {
+	content: "★ ";
+	color: var(--point-color);
+}
+
+/* 8. 문의 영역 */
+#contact {
+	text-align: center;
+}
+#contact h2::after {
+	margin: 8px auto 0;
+}
+#contact img {
+	margin: 20px auto 0;
+	border-radius: 12px;
+}
+
+/* 9. 바닥 영역 */
+footer {
+	background-color: var(--text-color);
+	color: #cccccc;
+	text-align: center;
+	padding: 20px;
+	font-size: 0.9rem;
+}
+
+/* 10. 반응형: 태블릿 (768px 이상) */
+@media (min-width: 768px) {
+	header {
+		display: flex; /* 사이트 이름과 메뉴를 한 줄로 */
+		justify-content: space-between;
+		align-items: center;
+		padding: 16px 40px;
+	}
+	nav ul {
+		margin-top: 0;
+		gap: 24px;
+	}
+	#about {
+		grid-template-columns: auto 1fr; /* 사진 칸 + 글 칸 */
+		justify-items: start;
+		text-align: left;
+		column-gap: 40px;
+		row-gap: 8px;
+	}
+	#about img {
+		grid-row: 1 / 3; /* 사진이 두 줄을 차지 */
+	}
+	#about h2 {
+		align-self: end;
+	}
+	#about h2::after {
+		margin: 8px 0 0; /* 밑줄 왼쪽 정렬 */
+	}
+	#about p {
+		align-self: start;
+	}
+	#career {
+		grid-template-columns: 1fr 1fr; /* 경력 카드 2열 */
+	}
+	#skills ul,
+	#education ul {
+		grid-template-columns: 1fr 1fr; /* 목록 2열 */
+	}
+}
+
+/* 11. 반응형: PC (1024px 이상) */
+@media (min-width: 1024px) {
+	#about img {
+		width: 280px;
+		height: 280px;
+	}
+	#about h2 {
+		font-size: 2.5rem;
+	}
+}
+
+
+/* 12. 휴대폰 메뉴 (3일차) */
+header {
+  display: flex;                 /* 사이트 이름과 버튼을 한 줄로 */
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+#menu-btn {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+#main-nav {
+  display: none;                 /* 휴대폰: 처음에는 메뉴 숨김 */
+  width: 100%;
+}
+#main-nav.open {
+  display: block;                /* open 표시가 붙으면 메뉴 보임 */
+}
+#main-nav ul {
+  flex-direction: column;        /* 휴대폰: 세로 메뉴 */
+  gap: 0;
+}
+#main-nav a {
+  display: block;
+  padding: 10px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 태블릿·PC (768px 이상): 버튼 숨기고 메뉴 항상 보이기 */
+@media (min-width: 768px) {
+  #menu-btn {
+    display: none;
+  }
+  #main-nav {
+    display: block;
+    width: auto;
+  }
+  #main-nav ul {
+    flex-direction: row;
+    gap: 24px;
+  }
+  #main-nav a {
+    padding: 0;
+    border-top: none;
+  }
+}
+
+
+/* 13. 맨 위로 가기 버튼 (3일차) */
+#top-btn {
+  position: fixed;               /* 화면 오른쪽 아래에 고정 */
+  right: 20px;
+  bottom: 20px;
+  z-index: 20;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;            /* 원형 버튼 */
+  background-color: var(--point-color);
+  color: var(--white);
+  font-size: 1.4rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  opacity: 0;                    /* 처음에는 숨김 */
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+#top-btn.show {                  /* show 표시가 붙으면 나타남 */
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 14. 문의 폼 (3일차) */
+#contact-form {
+  display: grid;
+  gap: 8px;
+  max-width: 600px;
+  margin: 24px auto 0;
+  text-align: left;
+}
+#contact-form label {
+  margin-top: 8px;
+  font-weight: 700;
+}
+#contact-form input,
+#contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d6d3cc;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+#contact-form input:focus,
+#contact-form textarea:focus {   /* 입력 중인 칸 강조 */
+  outline: 2px solid var(--main-color);
+  border-color: transparent;
+}
+#contact-form button {
+  margin-top: 12px;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--main-color);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+#contact-form button:hover {
+  opacity: 0.9;
+}
+#form-msg {
+  min-height: 1.5em;
+  text-align: center;
+  font-weight: 700;
+}
+#form-msg.error {
+  color: #c0392b;                /* 오류: 빨간색 */
+}
+#form-msg.success {
+  color: var(--main-color);      /* 성공: 대표색 */
+}
