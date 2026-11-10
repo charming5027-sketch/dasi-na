@@ -1,110 +1,814 @@
-<!DOCTYPE html>
+
+<!doctype html>
+<!--
+============================================================
+  LEARNING & CAREER ARCHITECT
+  포트폴리오 홈페이지 - index.html
+============================================================
+
+[현재 폴더 구조]
+
+프로젝트 폴더/
+│
+├── index.html
+├── css/
+│   └── style.css
+├── js/
+│   └── script.js
+├── img/
+│   └── object_5cm_20smaller.mp4
+│
+└── 기타 기존 파일
+
+[파일 역할]
+1. index.html : 홈페이지 내용과 화면 구조
+2. css/style.css : 색상, 크기, 여백, 반응형 디자인
+3. js/script.js : 메뉴, 작품 선택, PDF 미리보기
+4. img/ : 회전 오브제 및 이미지
+
+[중요]
+- 기존 영역별 비율과 레이아웃 변경 금지
+- HOME / ABOUT ME / WORKS / KEY PERFORMANCE / CONTACT 유지
+- 상단 및 하단 개인 이름 추가 금지
+- 확정된 성과 수치 변경 금지
+- 360도 오브제 원본 변경 금지
+- WORKS는 PDF 파일만 연결하는 구조
+- 관리자 모드 사용하지 않음
+============================================================
+-->
+
 <html lang="ko">
+
 <head>
-  <!-- 문자 인코딩: 한글이 깨지지 않도록 설정 -->
+  <!-- 01. 문서 기본 설정 -->
   <meta charset="UTF-8">
-  <!-- 모바일 화면 크기에 맞추는 설정 (2일차 반응형에서 사용) -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>다시, 나 | 김지은 포트폴리오</title>
 
-  <!-- Google Fonts: Noto Sans KR 글꼴 연결 -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <!-- 외부 CSS 파일 연결 -->
+  <meta name="description"
+        content="교육기획·운영, 취업 연계, AI 콘텐츠 제작을 소개하는 포트폴리오">
+
+  <title>Learning & Career Architect | Portfolio</title>
+
+  <!-- 구글 글꼴 연결 -->
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!--
+  [CSS 연결]
+  style.css 파일은 css 폴더 안에 있습니다.
+  디자인이 적용되지 않으면 이 경로를 확인하세요.
+  -->
   <link rel="stylesheet" href="./css/style.css">
 
-  <!-- 외부 JavaScript 파일 연결 (defer: 화면을 다 읽은 뒤 실행) -->
+  <!--
+  [JavaScript 연결]
+  script.js 파일은 js 폴더 안에 있습니다.
+  WORKS 카드와 PDF 미리보기 기능을 담당합니다.
+  -->
   <script src="./js/script.js" defer></script>
+
 </head>
+
 <body>
 
-    <!-- 머리 영역: 사이트 이름, 휴대폰 메뉴 버튼, 메뉴 -->
-  <header>
-    <h1>다시, 나</h1>
-    <!-- 휴대폰 메뉴 버튼 (3일차 추가) -->
-    <button type="button" id="menu-btn" aria-label="메뉴 열기" aria-expanded="false">☰</button>
-    <nav id="main-nav">
-      <ul>
-        <li><a href="#about">소개</a></li>
-        <li><a href="#career">경력</a></li>
-        <li><a href="#skills">역량</a></li>
-        <li><a href="#education">교육·자격</a></li>
-        <li><a href="#contact">문의</a></li>
-      </ul>
+  <!-- 키보드 사용자를 위한 본문 이동 -->
+  <a class="skip-link" href="#about">
+    본문으로 이동
+  </a>
+
+  <!--
+  ==========================================================
+  02. HEADER
+  ==========================================================
+
+  [유지]
+  - 오른쪽 가로 메뉴
+  - ABOUT ME / WORKS / KEY PERFORMANCE / CONTACT
+  - 모바일 햄버거 메뉴
+
+  [변경 금지]
+  - 상단 이름 및 로고 추가 금지
+  - 메뉴 순서 및 디자인 임의 변경 금지
+  ==========================================================
+  -->
+
+  <header class="site-header">
+
+    <button
+      type="button"
+      id="menu-btn"
+      class="menu-btn"
+      aria-expanded="false"
+      aria-controls="main-nav"
+      aria-label="메뉴 열기">
+      ☰
+    </button>
+
+    <nav
+      id="main-nav"
+      class="main-nav"
+      aria-label="주 메뉴">
+
+      <a href="#about">ABOUT ME</a>
+      <a href="#works">WORKS</a>
+      <a href="#performance">KEY PERFORMANCE</a>
+      <a href="#contact">CONTACT</a>
+
     </nav>
+
   </header>
 
   <main>
-    <!-- 소개 영역: 프로필 사진과 한 줄 소개 -->
-    <section id="about">
-      <img src="./img/profile.jpg" alt="김지은 프로필 사진" width="400" height="400">
-      <h2>김지은</h2>
-      <p>10년 경력의 사무행정 전문가, 다시 시작합니다.</p>
+
+    <!--
+    ========================================================
+    03. HOME
+    ========================================================
+
+    [화면 구성]
+    - 왼쪽 : 메인 슬로건과 소개
+    - 오른쪽 : 360도 회전 오브제 영상
+
+    [변경 금지]
+    - 기존 좌우 비율
+    - 오브제 영역 크기
+    - 전체 HOME 높이
+    - 원본 오브제 영상
+
+    [문구 수정]
+    아래 hero-title과 hero-desc에서 변경할 수 있습니다.
+    ========================================================
+    -->
+
+    <section
+      id="home"
+      class="hero"
+      aria-labelledby="hero-title">
+
+      <!-- 왼쪽 소개 영역 -->
+      <div class="hero-copy">
+
+        <p class="eyebrow">
+          EDUCATION PLANNING × AI CREATIVE
+        </p>
+
+        <!-- 메인 슬로건 -->
+        <h1 id="hero-title">
+          사람의 강점을 발견하고,<br>
+          <em>지속 가능한 경력을</em> 설계합니다.
+        </h1>
+
+        <!-- 서브 타이틀 -->
+        <p class="hero-desc">
+          교육 현장의 전문성에 AI 콘텐츠 제작 역량을 더한
+          <br class="desktop-break">
+          실행 중심 교육 기획·운영 전문가
+        </p>
+
+        <!-- 이동 버튼 -->
+        <div class="hero-actions">
+
+          <a class="btn btn-primary" href="#works">
+            작업물 둘러보기
+            <span aria-hidden="true">↗</span>
+          </a>
+
+          <a class="text-link" href="#about">
+            ABOUT ME ↓
+          </a>
+
+        </div>
+
+      </div>
+
+      <!--
+      [360도 회전 오브제]
+
+      현재 영상 파일 위치:
+      img/object_5cm_20smaller.mp4
+
+      확정 사양:
+      - 오브제 두께 약 5cm
+      - 기존 대비 20% 축소
+      - 360도 회전
+      - 무음 자동 재생
+      - 무한 반복
+
+      영상 원본을 임의 수정하지 않습니다.
+      -->
+
+      <div
+        class="hero-object hero-object-final"
+        aria-label="Learning & Career ARCHITECT 360도 회전 오브제">
+
+        <div
+          class="object-halo"
+          aria-hidden="true">
+        </div>
+
+        <div class="final-object-frame">
+
+          <video
+            class="final-object-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-label="Learning & Career ARCHITECT 타원형 오브제가 360도 회전하는 영상">
+
+            <!-- 오브제 영상 연결 경로 -->
+            <!-- 확정된 360도 회전 오브제 영상 -->
+<!-- 실제 파일 위치: public/img/hero/object_5cm_20smaller.mp4 -->
+<source
+  src="./img/hero/object_5cm_20smaller.mp4"
+  type="video/mp4">
+
+            이 브라우저에서는 영상을 재생할 수 없습니다.
+
+          </video>
+
+        </div>
+
+      </div>
+
+      <div class="hero-index" aria-hidden="true">
+        01 / INTRODUCTION
+      </div>
+
     </section>
 
-    <!-- 경력 영역: 회사, 기간, 담당 업무 -->
-    <section id="career">
-      <h2>경력</h2>
-      <article>
-        <h3>(주)한빛상사 총무팀</h3>
-        <p>2010.03 ~ 2016.02</p>
-        <p>문서 관리, 비품 구매, 행사 운영</p>
-      </article>
-      <article>
-        <h3>(주)새봄유통 영업지원팀</h3>
-        <p>2016.03 ~ 2020.02</p>
-        <p>거래처 관리, 매출 자료 정리, 고객 응대</p>
-      </article>
+    <!--
+    ========================================================
+    04. ABOUT ME
+    ========================================================
+
+    [레이아웃 고정]
+    왼쪽 : 자기소개
+    오른쪽 : 2×2 핵심 역량 카드
+
+    [변경 금지]
+    - 왼쪽 소개 레이아웃
+    - 오른쪽 카드 4개 배치
+    - 카드 크기 및 위치
+    - 기존 색상과 간격
+
+    PDF 업로드 기능이 없는 고정 영역입니다.
+    ========================================================
+    -->
+
+    <section
+      id="about"
+      class="content-section about-section"
+      aria-labelledby="about-title">
+
+      <!-- 섹션 제목 -->
+      <div class="section-header">
+
+        <p class="section-no">
+          01 — THE PERSON
+        </p>
+
+        <h2 id="about-title">
+          ABOUT ME
+        </h2>
+
+        <p>
+          사람의 성장과 변화가 일어나는 과정을 설계합니다.
+        </p>
+
+      </div>
+
+      <div class="about-grid">
+
+        <!-- 왼쪽 소개 영역 -->
+        <div class="about-lead">
+
+          <span class="small-label">
+            MY PERSPECTIVE
+          </span>
+
+          <h3>
+            교육은 수료로 끝나지 않고,<br>
+            다음 기회로 이어져야 합니다.
+          </h3>
+
+          <p>
+            학습자의 출발점과 목표를 살피고,
+            교육과정 기획부터 운영·상담·취업 연계·
+            사후관리까지 이어지는 흐름을 만들어 왔습니다.
+            이제 그 경험에 AI 콘텐츠 기획과
+            제작 역량을 더하고 있습니다.
+          </p>
+
+          <p class="about-signature">
+            Education Planner &amp; Creative Maker
+          </p>
+
+        </div>
+
+        <!--
+        [오른쪽 고정 카드]
+
+        카드 순서:
+        01 교육 기획·운영
+        02 취업 연계 및 상담
+        03 성과 관리
+        04 프로그램 개선
+
+        기존 2열 × 2행 유지
+        -->
+
+        <div
+          class="about-details"
+          aria-label="4대 핵심 역량">
+
+          <!-- 카드 1 -->
+          <article class="detail-card">
+
+            <span>
+              01 / PLANNING &amp; OPERATIONS
+            </span>
+
+            <h4>
+              교육 기획·운영
+            </h4>
+
+            <p>
+              커리큘럼 설계 및 수강생 관리
+            </p>
+
+          </article>
+
+          <!-- 카드 2 -->
+          <article class="detail-card">
+
+            <span>
+              02 / CAREER SUPPORT
+            </span>
+
+            <h4>
+              취업 연계 및 상담
+            </h4>
+
+            <p>
+              1:1 진로 매칭 및 취업 지원
+            </p>
+
+          </article>
+
+          <!-- 카드 3 -->
+          <article class="detail-card">
+
+            <span>
+              03 / PERFORMANCE
+            </span>
+
+            <h4>
+              성과 관리
+            </h4>
+
+            <p>
+              정량적 목표 달성 및 지표 분석
+            </p>
+
+          </article>
+
+          <!-- 카드 4 -->
+          <article class="detail-card">
+
+            <span>
+              04 / IMPROVEMENT
+            </span>
+
+            <h4>
+              프로그램 개선
+            </h4>
+
+            <p>
+              피드백 분석 및 서비스 고도화
+            </p>
+
+          </article>
+
+        </div>
+
+      </div>
+
     </section>
 
-    <!-- 역량 영역: 나의 강점 -->
-    <section id="skills">
-      <h2>역량</h2>
-      <ul>
-        <li>문서 작성과 자료 정리 (한글, 엑셀)</li>
-        <li>고객 응대와 일정 관리</li>
-        <li>생성형 AI를 활용한 웹페이지 제작</li>
-      </ul>
+    <!--
+    ========================================================
+    05. WORKS
+    ========================================================
+
+    [화면 구성]
+    - PC : 가로 4열 카드
+    - 동화책 1
+    - 동화책 2
+    - 카드뉴스
+    - 동영상
+
+    [PDF 연결 방법]
+    1. PDF 파일을 프로젝트 폴더에 추가합니다.
+    2. js/script.js의 WORK_PDFS를 수정합니다.
+    3. 해당 카테고리의 null을 PDF 경로로 변경합니다.
+
+    [중요]
+    - 관리자 모드 없음
+    - 임의 제목 및 기획 의도 없음
+    - PDF 원본 전체 보기
+    - 상세 화면 오른쪽 설명 패널 없음
+    ========================================================
+    -->
+
+    <section
+      id="works"
+      class="content-section works-section"
+      aria-labelledby="works-title">
+
+      <div class="section-header">
+
+        <p class="section-no">
+          02 — SELECTED PROJECTS
+        </p>
+
+        <h2 id="works-title">
+          WORKS
+        </h2>
+
+        <p>
+          동화책 · 카드뉴스 · 동영상 작업물
+        </p>
+
+      </div>
+
+      <!-- 카테고리 선택 버튼 -->
+      <div
+        class="work-tabs"
+        role="group"
+        aria-label="작업물 카테고리 필터">
+
+        <button
+          type="button"
+          class="tab active"
+          data-filter="all"
+          aria-pressed="true">
+          ALL
+        </button>
+
+        <button
+          type="button"
+          class="tab"
+          data-filter="book1"
+          aria-pressed="false">
+          동화책 1
+        </button>
+
+        <button
+          type="button"S
+          class="tab"
+          data-filter="book2"
+          aria-pressed="false">
+          동화책 2
+        </button>
+
+        <button
+          type="button"
+          class="tab"
+          data-filter="cardnews"
+          aria-pressed="false">
+          카드뉴스
+        </button>
+
+        <button
+          type="button"
+          class="tab"
+          data-filter="video"
+          aria-pressed="false">
+          동영상
+        </button>
+
+      </div>
+
+      <!--
+      JavaScript가 카드 4개를 자동으로 생성합니다.
+
+      따라서 이 div 내부에 임의로 카드 코드를 추가하지 마세요.
+      -->
+      <div
+        id="works-grid"
+        class="works-grid"
+        aria-live="polite">
+      </div>
+
     </section>
 
-    <!-- 교육·자격 영역 -->
-    <section id="education">
-      <h2>교육·자격</h2>
-      <ul>
-        <li>디지털서비스융합 전문가 양성과정 수료 (2026)</li>
-        <li>컴퓨터활용능력 2급</li>
-      </ul>
+    <!--
+    ========================================================
+    06. KEY PERFORMANCE
+    ========================================================
+
+    [확정된 성과 지표]
+    수료율 98.6%
+    취업 연계율 81.1%
+    평균 만족도 9.3/10
+
+    수상:
+    2020년 고용노동부 장관상
+
+    [변경 금지]
+    - 성과 수치
+    - 카드 3열 구조
+    - 딥그린 배경
+    - 영역 높이 및 배치
+    ========================================================
+    -->
+
+    <section
+      id="performance"
+      class="content-section performance-section"
+      aria-labelledby="performance-title">
+
+      <div class="section-header">
+
+        <p class="section-no">
+          03 — PROVEN IMPACT
+        </p>
+
+        <h2 id="performance-title">
+          KEY PERFORMANCE
+        </h2>
+
+        <p>
+          학습자의 성장에 집중해 만들어 낸 주요 성과입니다.
+        </p>
+
+      </div>
+
+      <!-- 성과 카드 3개 -->
+      <div class="metric-grid">
+
+        <!-- 수료율 -->
+        <article class="metric">
+
+          <span>
+            COMPLETION RATE
+          </span>
+
+          <strong>
+            98.6<small>%</small>
+          </strong>
+
+          <p>
+            교육 수료율
+          </p>
+
+        </article>
+
+        <!-- 취업 연계율 -->
+        <article class="metric metric-offset">
+
+          <span>
+            EMPLOYMENT LINKAGE
+          </span>
+
+          <strong>
+            81.1<small>%</small>
+          </strong>
+
+          <p>
+            취업 연계율
+          </p>
+
+        </article>
+
+        <!-- 만족도 -->
+        <article class="metric">
+
+          <span>
+            PARTICIPANT SATISFACTION
+          </span>
+
+          <strong>
+            9.3<small>/10</small>
+          </strong>
+
+          <p>
+            평균 만족도
+          </p>
+
+        </article>
+
+      </div>
+
+      <!-- 수상 내역 -->
+      <div class="award-strip">
+
+        <div
+          class="award-icon"
+          aria-hidden="true">
+          ✺
+        </div>
+
+        <div>
+
+          <span>
+            RECOGNITION / 2020
+          </span>
+
+          <strong>
+            2020년 고용노동부 장관상
+          </strong>
+
+          <p>
+            교육 기획·운영 실무 경험을 바탕으로
+            축적한 전문성과 성과
+          </p>
+
+        </div>
+
+      </div>
+
+      <p class="metric-note">
+        * 성과 지표는 기존 포트폴리오에 기재된 수치를
+        반영했습니다. 공개 전 적용 기간·산정 기준을
+        확인해 주세요.
+      </p>
+
     </section>
 
-        <!-- 문의 영역: 입력 폼 (4일차에 서버와 연결 예정) -->
-    <section id="contact">
-      <h2>문의</h2>
-      <p>함께 일할 기회를 기다립니다. 아래에 문의를 남겨 주세요.</p>
-      <form id="contact-form" novalidate>
-        <label for="name">이름</label>
-        <input type="text" id="name" name="name" placeholder="홍길동">
+    <!--
+    ========================================================
+    07. CONTACT
+    ========================================================
 
-        <label for="email">이메일</label>
-        <input type="email" id="email" name="email" placeholder="example@email.com">
+    [유지]
+    NAME
+    E-MAIL
+    MOBILE
 
-        <label for="message">문의 내용</label>
-        <textarea id="message" name="message" rows="5" placeholder="10자 이상 입력해 주세요."></textarea>
+    [변경 금지]
+    - 문의 폼 추가 금지
+    - 개인 이름 임의 입력 금지
+    - 하단 오른쪽 밑줄 추가 금지
 
-        <button type="submit">문의 보내기</button>
-        <!-- 입력 확인 결과 문구가 나타나는 곳 -->
-        <p id="form-msg" aria-live="polite"></p>
-      </form>
+    이메일과 전화번호는 추후 실제 정보를 입력합니다.
+    ========================================================
+    -->
+
+    <section
+      id="contact"
+      class="content-section contact-section"
+      aria-labelledby="contact-title">
+
+      <div class="section-header">
+
+        <p class="section-no">
+          04 — LET'S CONNECT
+        </p>
+
+        <h2 id="contact-title">
+          CONTACT
+        </h2>
+
+      </div>
+
+      <div class="contact-grid">
+
+        <address
+          class="contact-info"
+          aria-label="연락처 정보">
+
+          <!-- 이름: 항목명만 표시 -->
+          <div class="contact-item">
+
+            <span class="contact-label">
+              NAME
+            </span>
+
+          </div>
+
+          <!-- 이메일 -->
+          <div class="contact-item">
+
+            <span class="contact-label">
+              E-MAIL
+            </span>
+
+            <span id="contact-email">
+              이메일 주소 입력 예정
+            </span>
+
+          </div>
+
+          <!-- 휴대전화 -->
+          <div class="contact-item">
+
+            <span class="contact-label">
+              MOBILE
+            </span>
+
+            <span id="contact-phone">
+              연락처 입력 예정
+            </span>
+
+          </div>
+
+        </address>
+
+      </div>
+
     </section>
+
   </main>
 
-  <!-- 바닥 영역: 저작권 표시 -->
+  <!--
+  ==========================================================
+  08. FOOTER
+  ==========================================================
+  개인 이름과 불필요한 오른쪽 밑줄을 추가하지 않습니다.
+  ==========================================================
+  -->
+
   <footer>
-    <p>&copy; 2026 김지은. All rights reserved.</p>
+    <span>
+      © 2026 All rights reserved.
+    </span>
   </footer>
 
-    <!-- 맨 위로 가기 버튼 (3일차 추가) -->
-  <button type="button" id="top-btn" aria-label="맨 위로 가기">↑</button>
+  <!-- 맨 위로 이동 버튼 -->
+  <button
+    id="top-btn"
+    type="button"
+    aria-label="맨 위로 이동">
+    ↑
+  </button>
+
+  <!--
+  ==========================================================
+  09. WORKS PDF 상세 보기
+  ==========================================================
+
+  WORKS 카드 클릭 시 열리는 팝업창입니다.
+
+  - PDF를 크게 표시
+  - 오른쪽 설명 패널 없음
+  - PDF 다운로드 영역
+  - JavaScript에서 내용 자동 생성
+
+  [중요]
+  viewer-dialog, viewer-body, viewer-actions의
+  ID를 임의로 변경하면 JavaScript 연결이 끊길 수 있습니다.
+  ==========================================================
+  -->
+
+  <dialog
+    id="viewer-dialog"
+    class="viewer-dialog work-detail-dialog"
+    aria-label="WORKS 작품 상세보기">
+
+    <div class="viewer-head">
+
+      <span
+        id="viewer-category"
+        class="viewer-category">
+        WORKS / PROJECT
+      </span>
+
+      <button
+        type="button"
+        id="viewer-close"
+        aria-label="닫기">
+        ✕
+      </button>
+
+    </div>
+
+    <!-- PDF 미리보기 영역 -->
+    <div
+      class="viewer-media"
+      id="viewer-body"
+      aria-label="PDF 원본 미리보기">
+    </div>
+
+    <!-- PDF 다운로드 영역 -->
+    <div
+      class="viewer-actions"
+      id="viewer-actions">
+    </div>
+
+  </dialog>
+
 </body>
 </html>

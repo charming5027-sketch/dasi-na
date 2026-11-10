@@ -1,101 +1,248 @@
-// =========================================
-// 다시, 나 - 기능 파일
-// 1일차: 파일 연결 확인용 (기능은 3일차)
-// =========================================
+"use strict";
+const WORK_PDFS = {
+  book1: "./img/book1.png",
+  book2: "./img/book2.png",
+  cardnews: "./img/card.png",
+  video: "./img/video.png"
+};
 
-// 브라우저 개발자도구(F12) 콘솔에 연결 확인 메시지 출력
-console.log('다시, 나: script.js 연결 완료');
+// 왼쪽 빈티지 카메라에서 재생할 실제 영상
+const VIDEO_FILE = "./img/video2.mp4";
 
+const CATEGORIES = {
+  book1: "동화책 1",
+  book2: "동화책 2",
+  cardnews: "카드뉴스",
+  video: "동영상"
+};
+const $ = (selector) => document.querySelector(selector);
+let selectedFilter = "all";
 
-// =========================================
-// 2. 휴대폰 메뉴 접기·펼치기 (3일차)
-// =========================================
-
-// 메뉴 버튼과 메뉴를 찾아서 변수에 저장
-const menuBtn = document.querySelector('#menu-btn');
-const mainNav = document.querySelector('#main-nav');
-
-// 메뉴를 닫는 동작을 함수로 묶어 둠 (여러 곳에서 다시 사용)
-function closeMenu() {
-  mainNav.classList.remove('open');
-  menuBtn.textContent = '☰';
-  menuBtn.setAttribute('aria-expanded', 'false');
-  menuBtn.setAttribute('aria-label', '메뉴 열기');
+function makeNode(tag, className, text) {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (text !== undefined) element.textContent = text;
+  return element;
 }
 
-// 메뉴 버튼을 누르면 메뉴를 열거나 닫음
-menuBtn.addEventListener('click', function () {
-  // open 표시를 붙였다 뗐다 함 (붙으면 true)
-  const isOpen = mainNav.classList.toggle('open');
-  menuBtn.textContent = isOpen ? '✕' : '☰';
-  menuBtn.setAttribute('aria-expanded', isOpen);
-  menuBtn.setAttribute('aria-label', isOpen ? '메뉴 닫기' : '메뉴 열기');
-});
+function renderWorks() {
+  const grid = $("#works-grid");
+  if (!grid) return;
+  grid.replaceChildren();
+  for (const [category, title] of Object.entries(CATEGORIES)) {
+    if (selectedFilter !== "all" && category !== selectedFilter) continue;
+    const card = makeNode("article", "work-card");
+    const media = makeNode("div", `work-media media-${category}`);
+    const icon = makeNode("span", "pdf-document-icon");
+    icon.setAttribute("aria-hidden", "true");
+    media.append(icon);
+    const body = makeNode("div", "work-body");
+    body.append(makeNode("h3", "", title));
+    const controls = makeNode("div", "work-controls");
+    const open = makeNode("button", "work-card-open", "자세히 보기 ↗");
+    open.type = "button";
+    open.setAttribute("aria-label", `${title} PDF 보기`);
+    open.addEventListener("click", () => openPdf(category));
+    media.addEventListener("click", () => openPdf(category));
+    controls.append(open);
+    body.append(controls);
+    card.append(media, body);
+    grid.append(card);
+  }
+}
 
-// 메뉴 항목을 누르면 메뉴를 자동으로 닫음
-mainNav.querySelectorAll('a').forEach(function (link) {
-  link.addEventListener('click', closeMenu);
-});
 
+/*
+  WORKS 작품 상세 보기
+  PNG, JPG, WEBP 이미지는 화면에 맞게 표시
+  PDF 파일은 기존 PDF 뷰어로 표시
+  원본 비율 유지 및 다운로드 지원
+*/
 
-// =========================================
-// 3. 맨 위로 가기 버튼 (3일차)
-// =========================================
-const topBtn = document.querySelector('#top-btn');
+/*
+  WORKS 작품 상세 보기
+  ① 동화책/카드뉴스: PNG 또는 PDF 표시
+  ② 동영상: video.png 위에 video2.mp4 겹치기
+  ③ 기존 홈페이지 레이아웃은 변경하지 않음
+*/
 
-// 스크롤할 때마다 위치를 확인해 버튼을 보이거나 숨김
-window.addEventListener('scroll', function () {
-  if (window.scrollY > 300) {
-    topBtn.classList.add('show');
+function openPdf(category) {
+  const dialog = $("#viewer-dialog");
+  const body = $("#viewer-body");
+  const actions = $("#viewer-actions");
+
+  body.replaceChildren();
+  actions.replaceChildren();
+
+  $("#viewer-category").textContent =
+    `WORKS / ${CATEGORIES[category]}`;
+
+  const filePath = WORK_PDFS[category];
+
+  // 파일이 아직 연결되지 않은 경우
+  if (!filePath) {
+    body.appendChild(
+      makeNode("p", "pdf-pending", "작품 원본 준비 중")
+    );
+
+  } else if (category === "video") {
+
+    // ① 기존 포트폴리오 이미지
+    const showcase = makeNode("div", "video-showcase");
+
+    const background = makeNode("img", "video-layout-image");
+    background.src = filePath;
+    background.alt = "AI Video Production 포트폴리오";
+    showcase.appendChild(background);
+
+    // ② 왼쪽 카메라 화면에 실제 영상 배치
+    const player = makeNode("div", "camera-player");
+
+    const video = document.createElement("video");
+    video.src = VIDEO_FILE;
+    video.playsInline = true;
+    video.preload = "metadata";
+    video.setAttribute("playsinline", "");
+    video.setAttribute("aria-label", "AI 광고 영상");
+
+    player.appendChild(video);
+
+    // ③ 영상 재생 버튼
+    const playButton = makeNode(
+      "button",
+      "camera-play-button",
+      "▶"
+    );
+
+    playButton.type = "button";
+    playButton.setAttribute("aria-label", "동영상 재생");
+
+    playButton.addEventListener("click", async () => {
+      try {
+        await video.play();
+        player.classList.add("is-playing");
+      } catch (error) {
+        console.error("동영상 재생 실패:", error);
+      }
+    });
+
+    // 영상 클릭 시 일시정지
+    video.addEventListener("click", () => {
+      if (!video.paused) {
+        video.pause();
+      }
+    });
+
+    // 일시정지 시 재생 버튼 다시 표시
+    video.addEventListener("pause", () => {
+      player.classList.remove("is-playing");
+    });
+
+    // 영상 종료 시 처음으로 되돌리기
+    video.addEventListener("ended", () => {
+      player.classList.remove("is-playing");
+      video.currentTime = 0;
+    });
+
+    player.appendChild(playButton);
+    showcase.appendChild(player);
+    body.appendChild(showcase);
+
+    // 동영상 다운로드
+    const download = makeNode(
+      "a",
+      "pdf-download",
+      "동영상 다운로드"
+    );
+
+    download.href = "./img/video2.mp4";
+    download.download = "video2.mp4";
+    actions.appendChild(download);
+
   } else {
-    topBtn.classList.remove('show');
+
+    // ④ 기존 동화책과 카드뉴스 기능 유지
+    const isImage =
+      /\.(png|jpe?g|webp|gif)(\?.*)?$/i.test(filePath);
+
+    if (isImage) {
+      const img = makeNode("img", "work-preview-image");
+      img.src = filePath;
+      img.alt = `${CATEGORIES[category]} 작품 이미지`;
+      body.appendChild(img);
+
+    } else {
+      const iframe = makeNode("iframe", "pdf-viewer");
+      iframe.src = filePath;
+      iframe.title = `${CATEGORIES[category]} PDF 원본`;
+      body.appendChild(iframe);
+    }
+
+    // 이미지 또는 PDF 다운로드
+    const download = makeNode(
+      "a",
+      "pdf-download",
+      isImage ? "이미지 다운로드" : "PDF 다운로드"
+    );
+
+    download.href = filePath;
+    download.download = filePath.split("/").pop();
+    actions.appendChild(download);
   }
-});
 
-// 버튼을 누르면 맨 위로 부드럽게 이동
-topBtn.addEventListener('click', function () {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-// =========================================
-// 4. 문의 폼 입력 확인 (3일차)
-// =========================================
-const contactForm = document.querySelector('#contact-form');
-const formMsg = document.querySelector('#form-msg');
-
-// 결과 문구를 보여주는 함수 (type: error 또는 success)
-function showMessage(text, type) {
-  formMsg.textContent = text;
-  formMsg.className = type;
+  // 상세 보기 창 열기
+  if (typeof dialog.showModal === "function") {
+    dialog.showModal();
+  } else {
+    dialog.setAttribute("open", "");
+  }
 }
 
-// 문의 보내기 버튼을 누르면 입력값을 검사
-contactForm.addEventListener('submit', function (event) {
-  event.preventDefault();  // 페이지가 새로고침되지 않도록 막음
 
-  // 입력값 가져오기 (trim: 앞뒤 공백 제거)
-  const name = document.querySelector('#name').value.trim();
-  const email = document.querySelector('#email').value.trim();
-  const message = document.querySelector('#message').value.trim();
 
-  // 이메일 형식 검사 규칙 (글자@글자.글자)
-  const emailRule = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+function closePdf() {
+  const dialog = $("#viewer-dialog");
+  if (dialog.open && typeof dialog.close === "function") dialog.close();
+  else dialog.removeAttribute("open");
+  $("#viewer-body").replaceChildren();
+}
 
-  if (name === '') {
-    showMessage('이름을 입력해 주세요.', 'error');
-    return;
-  }
-  if (!emailRule.test(email)) {
-    showMessage('올바른 이메일 주소를 입력해 주세요.', 'error');
-    return;
-  }
-  if (message.length < 10) {
-    showMessage('문의 내용을 10자 이상 입력해 주세요.', 'error');
-    return;
-  }
-
-  // 모든 검사를 통과하면 성공 문구를 보여주고 입력칸을 비움
-  // (4일차에 이 자리에서 서버로 전송하도록 바꿀 예정)
-  showMessage('문의가 접수되었습니다. 감사합니다!', 'success');
-  contactForm.reset();
-});
+function init() {
+  const menu = $("#menu-btn");
+  const nav = $("#main-nav");
+  menu.addEventListener("click", () => {
+    const expanded = nav.classList.toggle("open");
+    menu.setAttribute("aria-expanded", String(expanded));
+    menu.setAttribute("aria-label", expanded ? "메뉴 닫기" : "메뉴 열기");
+    menu.textContent = expanded ? "✕" : "☰";
+  });
+  nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => {
+    nav.classList.remove("open");
+    menu.setAttribute("aria-expanded", "false");
+    menu.textContent = "☰";
+  }));
+  const topButton = $("#top-btn");
+  window.addEventListener("scroll", () => {
+    topButton.classList.toggle("show", window.scrollY > 350);
+  }, { passive: true });
+  topButton.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  document.querySelectorAll("[data-filter]").forEach((button) => {
+    button.addEventListener("click", () => {
+      selectedFilter = button.dataset.filter;
+      document.querySelectorAll("[data-filter]").forEach((b) => {
+        b.classList.toggle("active", b === button);
+        b.setAttribute("aria-pressed", String(b === button));
+      });
+      renderWorks();
+    });
+  });
+  $("#viewer-close").addEventListener("click", closePdf);
+  $("#viewer-dialog").addEventListener("click", (event) => {
+    if (event.target === $("#viewer-dialog")) closePdf();
+  });
+  $("#viewer-dialog").addEventListener("close", () => {
+    $("#viewer-body").replaceChildren();
+  });
+  renderWorks();
+}
+init();
